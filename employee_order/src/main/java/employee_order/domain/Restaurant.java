@@ -6,29 +6,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity  
-@Table(name = "lunchmenu.employee")
-public class Employee {
+@Entity
+@Table(name = "lunchmenu.restaurant")
+public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
     private String name;
-    private float balance;
     
-    public Employee() {
+    public Restaurant() {
         
     }
     
-    public Employee(String name, float balance) {
+    public Restaurant(String name) {
         this.name = name;
-        this.balance = balance;
     }
-    
+
     public int getId() {
         return id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
@@ -39,13 +37,5 @@ public class Employee {
     
     public void setName(String name) {
         this.name = name;
-    }
-    
-    public float getBalance() {
-        return balance;
-    }
-    
-    public void setBalance(float balance) {
-        this.balance = balance;
     }
 }

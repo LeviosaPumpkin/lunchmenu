@@ -11,14 +11,8 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource({"classpath:context.xml"})
 public class Main {  
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(Main.class);
-        EmployeeService employeeService = context.getBean(EmployeeService.class);
-        employeeService.create("Sansa Stark", 2000.0f);
-        employeeService.create("Robert Baratheon", 2000.0f);
-//        employeeService.create("Arya Stark", 2000.0f);
-//        employeeService.create("Tyrion Lannister", 2000.0f);
-//        employeeService.create("Sam Tarly", 2000.0f);
+        ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
 
-        context.close();
+        //context.close();
     }
 }
