@@ -1,0 +1,15 @@
+plugins {
+    id 'war'
+    id 'io.freefair.lombok' version '5.1.1'
+}
+
+/* springBoot {
+    mainClass 'leviosa.pumpkin.gatewayservice.App'
+} */
+
+dependencies {
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zuul', version: '1.4.7.RELEASE'
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
+}
