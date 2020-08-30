@@ -7,15 +7,24 @@ plugins {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
 }
 
 dependencies {
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '2.3.3.RELEASE', ext: 'pom'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.3.3.RELEASE'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zuul', version: '1.4.7.RELEASE'
-    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '2.2.4.RELEASE'
+//	compile group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '2.3.3.RELEASE', ext: 'pom'
+//	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.3.3.RELEASE'
+//    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zuul'
+//    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
+//	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
+ 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
 
-	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.3.3.RELEASE'
+//	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.3.3.RELEASE'
 
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Hoxton.RC1"
+    }
 }
