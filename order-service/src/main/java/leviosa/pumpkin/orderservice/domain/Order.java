@@ -18,6 +18,13 @@ public class Order {
     private Date date;
     private float cost;
 
+    public Order(int employeeId, int restaurantId, Date date, float cost) {
+        this.employeeId = employeeId;
+        this.restaurantId = restaurantId;
+        this.date = date;
+        this.cost = cost;
+    }
+
     public int getId() {
         return id;
     }
