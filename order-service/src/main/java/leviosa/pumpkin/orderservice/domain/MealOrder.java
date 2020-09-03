@@ -16,6 +16,13 @@ public class MealOrder {
     private int mealId;
     private int amount;
     private float cost;
+
+    public MealOrder(int orderId, int mealId, int amount, float cost) {
+        this.orderId = orderId;
+        this.mealId = mealId;
+        this.amount = amount;
+        this.cost = cost;
+    }
     
     public int getId() {
         return id;

@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import leviosa.pumpkin.orderservice.dao.EmployeeRepository;
 import leviosa.pumpkin.orderservice.domain.Employee;
+import leviosa.pumpkin.orderservice.repository.EmployeeRepository;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{

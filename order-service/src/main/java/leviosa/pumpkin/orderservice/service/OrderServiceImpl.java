@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import leviosa.pumpkin.orderservice.dao.OrderRepository;
 import leviosa.pumpkin.orderservice.domain.MealOrder;
 import leviosa.pumpkin.orderservice.domain.Order;
+import leviosa.pumpkin.orderservice.repository.OrderRepository;
 
 public class OrderServiceImpl implements OrderService {
     @Autowired
@@ -16,9 +16,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void create(Order order) {
-        orderRepository.save(order);
-
+    public int create(Order order) {
+        orderRepository.save(order).getId();
     }
 
     @Override

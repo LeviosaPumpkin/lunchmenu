@@ -1,10 +1,9 @@
 package leviosa.pumpkin.orderservice.facade;
 
-import java.util.List;
+import java.util.Date;
+import java.util.Map;
 
-import leviosa.pumpkin.orderservice.domain.MealOrder;
-import leviosa.pumpkin.orderservice.domain.Order;
 
 public interface OrderFacade {
-    void createOrder(Order order, List<MealOrder> mealOrders);
+    void createOrder(int restaurantId, int employeeId, Date date, Map<Integer, Integer> mealIdAmountMap);
 }

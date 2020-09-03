@@ -1,4 +1,4 @@
-package leviosa.pumpkin.orderservice.dao;
+package leviosa.pumpkin.orderservice.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

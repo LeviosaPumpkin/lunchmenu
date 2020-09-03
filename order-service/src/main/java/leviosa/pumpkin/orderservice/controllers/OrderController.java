@@ -1,5 +1,6 @@
 package leviosa.pumpkin.orderservice.controllers;
 
+import leviosa.pumpkin.orderservice.controllers.dto.MakeOrderRequestDto;
 import leviosa.pumpkin.orderservice.domain.*;
 import leviosa.pumpkin.orderservice.facade.OrderFacade;
 import leviosa.pumpkin.orderservice.service.*;
@@ -28,7 +29,7 @@ class OrderController {
     } */
 
     @PostMapping(path="make_order", consumes = "application/json")
-    public void makeOrder(@RequestBody Order order, @RequestBody List<MealOrder> mealOrders) {
-        orderFacade.createOrder(order, mealOrders);        
+    public void makeOrder(@RequestBody MakeOrderRequestDto dto) {
+        orderFacade.createOrder(dto.getRestaurantId(), dto.getEmpolyeeId(), dto.getDate(), dto.getMealIdAmountMap());   
     }
 }
