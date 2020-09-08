@@ -1,13 +1,14 @@
 package leviosa.pumpkin.orderservice.facade;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import leviosa.pumpkin.orderservice.domain.MealOrder;
@@ -16,6 +17,7 @@ import leviosa.pumpkin.orderservice.repository.MealRepository;
 import leviosa.pumpkin.orderservice.service.MealOrderService;
 import leviosa.pumpkin.orderservice.service.OrderService;
 
+@Service
 public class OrderFacadeImpl implements OrderFacade {
     @Autowired
     private OrderService orderService;
@@ -42,5 +44,5 @@ public class OrderFacadeImpl implements OrderFacade {
         for (Map.Entry<Integer, Integer> mealIdAmount : mealIdAmountMap.entrySet()) {
             mealOrderService.create(new MealOrder(orderId, mealIdAmount.getKey(), mealIdAmount.getValue(), costs.get(mealIdAmount.getKey())));
         }
-    }    
+    }
 }
