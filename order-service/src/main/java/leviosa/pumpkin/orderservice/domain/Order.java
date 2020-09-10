@@ -1,6 +1,8 @@
 package leviosa.pumpkin.orderservice.domain;
 
 import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +15,9 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(name="employee_id")
     private int employeeId;
+    @Column(name="restaurant_id")
     private int restaurantId;
     private Date date;
     private float cost;

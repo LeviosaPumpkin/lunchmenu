@@ -7,7 +7,7 @@ public class MakeOrderRequestDto {
     private int empolyeeId;
     private int restaurantId;
     private Date date;
-    Map<Integer, Integer> mealIdAmountMap;
+    Map<String, Integer> mealIdAmountMap;
 
     public int getEmpolyeeId() {
         return empolyeeId;
@@ -33,11 +33,11 @@ public class MakeOrderRequestDto {
         this.date = date;
     }
 
-    public Map<Integer, Integer> getMealIdAmountMap() {
+    public Map<String, Integer> getMealIdAmountMap() {
         return mealIdAmountMap;
     }
 
-    public void setMealIdAmountMap(Map<Integer, Integer> mealIdAmountMap) {
+    public void setMealIdAmountMap(Map<String, Integer> mealIdAmountMap) {
         this.mealIdAmountMap = mealIdAmountMap;
     }
 

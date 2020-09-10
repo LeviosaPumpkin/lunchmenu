@@ -5,5 +5,5 @@ import java.util.Map;
 
 
 public interface OrderFacade {
-    void createOrder(int restaurantId, int employeeId, Date date, Map<Integer, Integer> mealIdAmountMap);
+    void createOrder(int restaurantId, int employeeId, Date date, Map<String, Integer> mealIdAmountMap);
 }

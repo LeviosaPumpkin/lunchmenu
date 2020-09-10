@@ -28,21 +28,25 @@ public class OrderFacadeImpl implements OrderFacade {
 
     @Override
     @Transactional
-    public void createOrder(int restaurantId, int employeeId, Date date, Map<Integer, Integer> mealIdAmountMap) {
+    public void createOrder(int restaurantId, int employeeId, Date date, Map<String, Integer> mealIdAmountMap) {
         float orderCost = 0.0f;
     
         Map<Integer, Float> costs = new HashMap<>();
-        for (Map.Entry<Integer, Integer> mealIdAmount : mealIdAmountMap.entrySet()) {
-            float price = mealRepository.findById(mealIdAmount.getKey()).get().getPrice();
+        for (Map.Entry<String, Integer> mealIdAmount : mealIdAmountMap.entrySet()) {
+            float price = mealRepository.findById(Integer.parseInt(mealIdAmount.getKey())).get().getPrice();
             float cost = price * mealIdAmount.getValue();
-            costs.put(mealIdAmount.getKey(), price);
+            costs.put(Integer.parseInt(mealIdAmount.getKey()), price);
             orderCost += cost;
         }
 
         int orderId = orderService.create(new Order (employeeId, restaurantId, date, orderCost));
 
-        for (Map.Entry<Integer, Integer> mealIdAmount : mealIdAmountMap.entrySet()) {
-            mealOrderService.create(new MealOrder(orderId, mealIdAmount.getKey(), mealIdAmount.getValue(), costs.get(mealIdAmount.getKey())));
+        for (Map.Entry<String, Integer> mealIdAmount : mealIdAmountMap.entrySet()) {
+            int mealId = Integer.parseInt(mealIdAmount.getKey());
+            int amount = mealIdAmount.getValue();
+            float cost = costs.get(mealId);
+            MealOrder mealOrder = new MealOrder(orderId, mealId, amount, cost);
+            mealOrderService.create(mealOrder);
         }
     }
 }
