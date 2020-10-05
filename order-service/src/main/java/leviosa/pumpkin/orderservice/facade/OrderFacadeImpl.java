@@ -5,26 +5,34 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import leviosa.pumpkin.orderservice.controllers.dto.GetOrdersResponseDto;
+import leviosa.pumpkin.orderservice.domain.Employee;
+import leviosa.pumpkin.orderservice.domain.Meal;
 import leviosa.pumpkin.orderservice.domain.MealOrder;
 import leviosa.pumpkin.orderservice.domain.Order;
+import leviosa.pumpkin.orderservice.repository.EmployeeRepository;
+import leviosa.pumpkin.orderservice.repository.MealOrderRepository;
 import leviosa.pumpkin.orderservice.repository.MealRepository;
-import leviosa.pumpkin.orderservice.service.MealOrderService;
-import leviosa.pumpkin.orderservice.service.OrderService;
+import leviosa.pumpkin.orderservice.repository.OrderRepository;
+import leviosa.pumpkin.orderservice.repository.RestaurantRepository;
 
 @Service
 public class OrderFacadeImpl implements OrderFacade {
     @Autowired
-    private OrderService orderService;
-    @Autowired
-    private MealOrderService mealOrderService;
-    @Autowired
     private MealRepository mealRepository;
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+    @Autowired
+    private MealOrderRepository mealOrderRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Override
     @Transactional
@@ -39,14 +47,37 @@ public class OrderFacadeImpl implements OrderFacade {
             orderCost += cost;
         }
 
-        int orderId = orderService.create(new Order (employeeId, restaurantId, date, orderCost));
+        int orderId = orderRepository.save(new Order (employeeId, restaurantId, date, orderCost)).getId();
 
         for (Map.Entry<String, Integer> mealIdAmount : mealIdAmountMap.entrySet()) {
             int mealId = Integer.parseInt(mealIdAmount.getKey());
             int amount = mealIdAmount.getValue();
             float cost = costs.get(mealId);
             MealOrder mealOrder = new MealOrder(orderId, mealId, amount, cost);
-            mealOrderService.create(mealOrder);
+            mealOrderRepository.save(mealOrder);
         }
+
+        Employee employee = employeeRepository.findById(employeeId).get();
+        employee.setBalance(employee.getBalance() - orderCost);
+        employeeRepository.save(employee);
+    }
+
+    @Override
+    @Transactional
+    public List<GetOrdersResponseDto> getOrders(int employeeId) {
+        List<GetOrdersResponseDto> getOrdersResponseDtos = new ArrayList<>();
+        orderRepository.findByEmployeeId(employeeId).forEach(o -> {
+            mealOrderRepository.findByOrderId(o.getId()).forEach(mo -> {
+                GetOrdersResponseDto dto = new GetOrdersResponseDto();
+                dto.setDate(o.getDate());
+                dto.setRestaurant(restaurantRepository.findById(o.getRestaurantId()).get().getName());
+                dto.setAmount(mo.getAmount());
+                Meal meal = mealRepository.findById(mo.getMealId()).get();
+                dto.setMealName(meal.getName());
+                dto.setPrice(meal.getPrice());
+                getOrdersResponseDtos.add(dto);
+            });
+        });
+        return getOrdersResponseDtos;
     }
 }

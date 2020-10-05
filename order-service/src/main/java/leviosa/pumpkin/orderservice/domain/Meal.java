@@ -19,6 +19,8 @@ public class Meal {
     @Column(name="restaurant_id")
     private int restaurantId;
 
+    public Meal() {}
+
     public int getId() {
         return id;
     }

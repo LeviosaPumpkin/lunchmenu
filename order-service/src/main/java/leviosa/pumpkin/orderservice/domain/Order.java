@@ -22,6 +22,8 @@ public class Order {
     private Date date;
     private float cost;
 
+    public Order() {}
+
     public Order(int employeeId, int restaurantId, Date date, float cost) {
         this.employeeId = employeeId;
         this.restaurantId = restaurantId;

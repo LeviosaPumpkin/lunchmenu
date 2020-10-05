@@ -1,5 +1,6 @@
 package leviosa.pumpkin.orderservice.controllers;
 
+import leviosa.pumpkin.orderservice.controllers.dto.GetOrdersResponseDto;
 import leviosa.pumpkin.orderservice.controllers.dto.MakeOrderRequestDto;
 import leviosa.pumpkin.orderservice.domain.*;
 import leviosa.pumpkin.orderservice.facade.OrderFacade;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping(value = "order")
+@RequestMapping(value = "orders")
 class OrderController {
 
     @Autowired
@@ -33,5 +34,10 @@ class OrderController {
     @PostMapping(path="make_order", consumes = "application/json")
     public void makeOrder(@RequestBody MakeOrderRequestDto dto) {
         orderFacade.createOrder(dto.getRestaurantId(), dto.getEmpolyeeId(), dto.getDate(), dto.getMealIdAmountMap());   
+    }
+
+    @GetMapping("get_orders/{id}")
+    public List<GetOrdersResponseDto> getOrdersResponseDto(@PathVariable int id) {
+        return orderFacade.getOrders(id);
     }
 }
