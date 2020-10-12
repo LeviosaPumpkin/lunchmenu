@@ -64,9 +64,28 @@ public class OrderFacadeImpl implements OrderFacade {
 
     @Override
     @Transactional
-    public List<GetOrdersResponseDto> getOrders(int employeeId) {
+    public List<GetOrdersResponseDto> getAllOrdersForEmployee(int employeeId) {
         List<GetOrdersResponseDto> getOrdersResponseDtos = new ArrayList<>();
         orderRepository.findByEmployeeId(employeeId).forEach(o -> {
+            mealOrderRepository.findByOrderId(o.getId()).forEach(mo -> {
+                GetOrdersResponseDto dto = new GetOrdersResponseDto();
+                dto.setDate(o.getDate());
+                dto.setRestaurant(restaurantRepository.findById(o.getRestaurantId()).get().getName());
+                dto.setAmount(mo.getAmount());
+                Meal meal = mealRepository.findById(mo.getMealId()).get();
+                dto.setMealName(meal.getName());
+                dto.setPrice(meal.getPrice());
+                getOrdersResponseDtos.add(dto);
+            });
+        });
+        return getOrdersResponseDtos;
+    }
+
+    @Override
+    @Transactional
+    public List<GetOrdersResponseDto> getOrdersForDates(int employeeId, Date dateFrom, Date dateTo) {
+        List<GetOrdersResponseDto> getOrdersResponseDtos = new ArrayList<>();
+        orderRepository.findByEmployeeIdAndDateBetween(employeeId, dateFrom, dateTo).forEach(o -> {
             mealOrderRepository.findByOrderId(o.getId()).forEach(mo -> {
                 GetOrdersResponseDto dto = new GetOrdersResponseDto();
                 dto.setDate(o.getDate());

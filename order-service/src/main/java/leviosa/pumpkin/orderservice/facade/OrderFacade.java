@@ -9,5 +9,6 @@ import leviosa.pumpkin.orderservice.controllers.dto.GetOrdersResponseDto;
 
 public interface OrderFacade {
     void createOrder(int restaurantId, int employeeId, Date date, Map<String, Integer> mealIdAmountMap);
-    List<GetOrdersResponseDto> getOrders(int employeeId);
+    List<GetOrdersResponseDto> getAllOrdersForEmployee(int employeeId);
+    List<GetOrdersResponseDto> getOrdersForDates(int employeeId, Date dateFrom, Date dateTo);
 }

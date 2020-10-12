@@ -19,6 +19,7 @@ public class Order {
     private int employeeId;
     @Column(name="restaurant_id")
     private int restaurantId;
+    @Column
     private Date date;
     private float cost;
 
