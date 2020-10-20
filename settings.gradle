@@ -16,3 +16,4 @@
 rootProject.name = 'lunchmenu'
 include 'gateway-service'
 include 'order-service'
+include 'authentification-service'
