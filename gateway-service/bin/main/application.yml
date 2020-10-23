@@ -1,0 +1,20 @@
+server:
+    port: 8080
+zuul:
+    sensitiveHeaders: Cookie,Set-Cookie
+    routes:
+        order-service:
+            path: /order-service/**
+            url: http://localhost:8082
+        oauth:
+            path: /authentification-service/**
+            url: http://localhost:8081
+    prefix: /lunchmenu
+eureka:
+    client:
+        register-with-eureka: false
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: 123

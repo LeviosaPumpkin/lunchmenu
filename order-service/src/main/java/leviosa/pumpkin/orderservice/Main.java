@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @ImportResource({"classpath:context.xml"})
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaRepositories
 @EntityScan
-
+@EnableResourceServer
 public class Main {  
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
