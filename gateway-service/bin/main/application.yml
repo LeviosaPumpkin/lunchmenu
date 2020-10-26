@@ -13,8 +13,4 @@ zuul:
 eureka:
     client:
         register-with-eureka: false
-security:
-  oauth2:
-    resource:
-      jwt:
-        key-value: 123
+     
