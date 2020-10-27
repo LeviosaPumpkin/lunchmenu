@@ -8,4 +8,4 @@ spring:
   security:
     oauth2:
       resource:
-        userInfoUri: http://localhost:8081/authentification-service/user
+        userInfoUri: http://localhost:8081/user
