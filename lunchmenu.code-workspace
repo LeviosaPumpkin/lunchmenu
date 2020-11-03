@@ -1,0 +1,54 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic",
+		"files.exclude": {
+			"**/.classpath": true,
+			"**/.project": true,
+			"**/.settings": true,
+			"**/.factorypath": true
+		}
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+		{
+			"type": "java",
+			"name": "Debug (Launch) - Current File",
+			"request": "launch",
+			"mainClass": "${file}"
+		},
+			{
+				"type": "java",
+				"name": "Debug (Launch) - Current File",
+				"request": "launch",
+				"mainClass": "${file}"
+			},
+			{
+				"type": "java",
+				"name": "Debug (Launch)-Main<authentification-service>",
+				"request": "launch",
+				"mainClass": "leviosa.pumpkin.authentificationsetvice.Main",
+				"projectName": "authentification-service"
+			},
+			{
+				"type": "java",
+				"name": "Debug (Launch)-Main<gateway-service>",
+				"request": "launch",
+				"mainClass": "leviosa.pumpkin.gatewayservice.Main",
+				"projectName": "gateway-service"
+			},
+			{
+				"type": "java",
+				"name": "Debug (Launch)-Main<order-service>",
+				"request": "launch",
+				"mainClass": "leviosa.pumpkin.orderservice.Main",
+				"projectName": "order-service"
+			}
+		]
+	}
+}

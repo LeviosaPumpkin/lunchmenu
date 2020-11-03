@@ -1,14 +1,15 @@
 server:
     port: 8080
 zuul:
-    sensitiveHeaders: Cookie,Set-Cookie
     routes:
         order-service:
             path: /order-service/**
             url: http://localhost:8082
+            sensitiveHeaders: Cookie,Set-Cookie
         oauth:
             path: /authentification-service/**
             url: http://localhost:8081
+            sensitiveHeaders: Cookie,Set-Cookie
     prefix: /lunchmenu
 eureka:
     client:

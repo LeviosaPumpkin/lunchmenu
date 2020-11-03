@@ -1,3 +1,4 @@
 server:
-  contextPath: /authentification-service
   port: 8081
+
+shuaicj.security.jwt.secret: otherpeopledontknowit

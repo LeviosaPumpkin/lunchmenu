@@ -7,7 +7,6 @@ plugins {
 repositories {
 	mavenCentral()
 	maven { url 'https://repo.spring.io/milestone' }
-
 }
 
 dependencies {
@@ -16,6 +15,8 @@ dependencies {
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-security', version: '2.2.4.RELEASE'
 	compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.5.0.RELEASE'
 	implementation 'org.glassfish.jaxb:jaxb-runtime'
+
+	implementation project(':jwt-common')
 }
 
 dependencyManagement {
