@@ -1,12 +1,2 @@
 server:
   port: 8082
-  servlet:
-    session:
-      cookie:
-        name: UISESSION
-spring:
-  security:
-    oauth2:
-      resource:
-        userInfoUri: http://localhost:8081/user
-        accessTokenUri: http://http://localhost:8081/oauth/token
