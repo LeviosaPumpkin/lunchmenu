@@ -6,12 +6,17 @@ import com.leviosa.pumpkin.orderservice.domain.*;
 import com.leviosa.pumpkin.orderservice.facade.OrderFacade;
 import com.leviosa.pumpkin.orderservice.service.*;
 
+import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,11 +47,16 @@ class OrderController {
 
     @GetMapping("get_orders/{id}")
     public List<GetOrdersResponseDto> getOrdersResponseDto(@PathVariable int id,
-            @RequestParam(required = false) String dateFrom, @RequestParam(required = false) String dateTo)
-            throws ParseException {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            return dateFrom == null || dateTo == null ?
-            orderFacade.getAllOrdersForEmployee(id) :
-            orderFacade.getOrdersForDates(id,format.parse(dateFrom), format.parse(dateTo));
+            @RequestParam(required = false) String dateFrom, 
+            @RequestParam(required = false) String dateTo,
+            Principal principal) throws Exception {
+                if (!principal.getName().equals(id)) {
+                    throw new Exception("Wrong credentials");
+                }
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                return dateFrom == null || dateTo == null ?
+                orderFacade.getAllOrdersForEmployee(id) :
+                orderFacade.getOrdersForDates(id,format.parse(dateFrom), format.parse(dateTo));
     }
 }
