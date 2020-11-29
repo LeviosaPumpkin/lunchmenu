@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @RestController
 @RequestMapping(value = "orders")
@@ -49,8 +51,10 @@ class OrderController {
     public List<GetOrdersResponseDto> getOrdersResponseDto(@PathVariable int id,
             @RequestParam(required = false) String dateFrom, 
             @RequestParam(required = false) String dateTo,
-            Principal principal) throws Exception {
-                if (!principal.getName().equals(id)) {
+            @RequestHeader HttpHeaders headers) throws Exception {
+                System.out.println(headers.toString());
+
+                if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals(id)) {
                     throw new Exception("Wrong credentials");
                 }
 

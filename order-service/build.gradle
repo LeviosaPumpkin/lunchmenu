@@ -15,8 +15,8 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.3.RELEASE'
 	implementation 'org.glassfish.jaxb:jaxb-runtime'
-	compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.4.1'
-	//compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.4.1'
+	//compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.4.1'
+	compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.4.1'
 
 
 	//compile group: 'org.springframework.cloud', name: 'spring-cloud-security', version: '2.2.4.RELEASE'
