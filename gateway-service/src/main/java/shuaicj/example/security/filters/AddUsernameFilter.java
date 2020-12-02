@@ -37,7 +37,6 @@ public class AddUsernameFilter extends ZuulFilter {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         ctx.addZuulRequestHeader("Username", username);   
-        ctx.getZuulRequestHeaders().forEach((k,v)->System.out.println("Item : " + k + " Count : " + v));
         return null;    
 	}
 }

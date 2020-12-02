@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.security.sasl.AuthenticationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
@@ -43,7 +45,11 @@ class OrderController {
     }
 
     @PostMapping(path = "make_order", consumes = "application/json")
-    public void makeOrder(@RequestBody MakeOrderRequestDto dto) {
+    public void makeOrder(@RequestBody MakeOrderRequestDto dto, 
+            @RequestHeader HttpHeaders headers) throws AuthenticationException {
+        if (!headers.getFirst("Username").equals(String.valueOf(dto.getEmpolyeeId()))) {
+            throw new AuthenticationException("You are not authorized");
+        }
         orderFacade.createOrder(dto.getRestaurantId(), dto.getEmpolyeeId(), dto.getDate(), dto.getMealIdAmountMap());
     }
 
@@ -51,11 +57,9 @@ class OrderController {
     public List<GetOrdersResponseDto> getOrdersResponseDto(@PathVariable int id,
             @RequestParam(required = false) String dateFrom, 
             @RequestParam(required = false) String dateTo,
-            @RequestHeader HttpHeaders headers) throws Exception {
-                System.out.println(headers.toString());
-
-                if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals(id)) {
-                    throw new Exception("Wrong credentials");
+            @RequestHeader HttpHeaders headers) throws AuthenticationException, ParseException {
+                if (!headers.getFirst("Username").equals(String.valueOf(id))) {
+                    throw new AuthenticationException("You are not authorized");
                 }
 
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
