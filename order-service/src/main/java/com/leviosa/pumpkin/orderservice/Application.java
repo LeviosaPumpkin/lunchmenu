@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  * @author shuaicj 2017/10/18
  */
-@ImportResource({"classpath:context.xml"})
 @Configuration
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @ComponentScan
